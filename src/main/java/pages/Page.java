@@ -3,99 +3,37 @@ package pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class Page {
 
-    protected double totalSumm = 0;
-    protected double itemCost = 0;
-
-    WebDriver driver;
-
-
-    protected Actions builder;
-    String BASE_URL = "https://www.ozon.ru/";
-
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.get(BASE_URL);
-        builder = new Actions(driver);
-
-
-    }
-
-    public void tearDown() {
-        driver.close();
-    }
 
     protected WebElement findByXpath(By xpath) {
-        return driver.findElement(xpath);
+        return Init.getDriver().findElement(xpath);
     }
 
     protected WebElement findByCss(By css) {
-        return driver.findElement(css);
+        return Init.getDriver().findElement(css);
     }
 
-    void clickXpath(By xpath) {
-        findByXpath(xpath).click();
+
+    void checkTotalValue(int total, int expectedValue) {
+        Assert.assertEquals("Значения не соотвествует ожидаемому",
+                expectedValue, total);
     }
 
-    void checkElementText(WebElement element, String expectedText) {
-        Assert.assertEquals("Значения текст не соотвествует ожидаемому",
-                expectedText, element.getText());
-
-    }
-
-    void checkElementAttribute(WebElement element, String expectedText) {
-        Assert.assertEquals("Значения текст не соотвествует ожидаемому",
-                expectedText, element.getAttribute("textContent").trim());
-    }
-
-    void waitForVisible(By xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+    void waitForVisible(By path) {
+        WebDriverWait wait = new WebDriverWait(Init.getDriver(), 10);
         wait.pollingEvery(Duration.ofMillis(300))
-                .until(ExpectedConditions.visibilityOfElementLocated(xpath));
+                .until(ExpectedConditions.visibilityOfElementLocated(path));
     }
 
-    void waitForClickable(By xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.pollingEvery(Duration.ofMillis(300))
-                .until(ExpectedConditions.elementToBeClickable(xpath));
-    }
-
-    void waitUntilLocated(By path) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions
-                .presenceOfElementLocated(path));
-    }
-
-    void clickWithWaitOnElement(By xpath) {
-        waitForVisible(xpath);
-        WebElement element = findByXpath(xpath);
-        element.click();
-    }
 
     void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-    }
-
-    WebElement getNewElementByXpath(By xpath) {
-        WebElement element = findByXpath(xpath);
-        return element;
-    }
-
-    WebElement getNewElementByCss(By css) {
-        WebElement element = findByXpath(css);
-        return element;
+        ((JavascriptExecutor) Init.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }
