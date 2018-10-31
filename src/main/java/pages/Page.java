@@ -25,10 +25,6 @@ public class Page {
         return Init.getDriver().findElement(xpath);
     }
 
-    protected WebElement findByCss(By css) {
-        return Init.getDriver().findElement(css);
-    }
-
     void checkTotalValue(int total, int expectedValue) {
         Assert.assertEquals("Значения не соотвествует ожидаемому",
                 expectedValue, total);

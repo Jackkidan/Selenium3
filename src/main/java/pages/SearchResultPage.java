@@ -1,12 +1,8 @@
 package pages;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,6 +15,7 @@ public class SearchResultPage extends Page {
 
     @FindBy(css = ".mCart .eMyOzon_ItemWrap")
     WebElement viewCart;
+
 
     private List<WebElement> elementList;
     private static int totalSumm = 0;
@@ -39,7 +36,7 @@ public class SearchResultPage extends Page {
     }
 
     public void addSeveralItems(int quantity) {
-        if (quantity<elementList.size()&&quantity>0) {
+        if (quantity < elementList.size() && quantity > 0) {
             for (int i = 0; i < quantity; i++) {
                 addItem(i);
             }

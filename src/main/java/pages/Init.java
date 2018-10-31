@@ -10,7 +10,6 @@ public class Init {
 
     static WebDriver driver;
     private static Actions builder;
-    static String BASE_URL = "https://www.ozon.ru/";
 
     public static WebDriver getDriver() {
         return driver;
@@ -20,12 +19,12 @@ public class Init {
         return builder;
     }
 
-    public static void setUp() {
+    public static void setUp(String url) {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(BASE_URL);
+        driver.get(url);
         builder = new Actions(driver);
 
     }

@@ -8,7 +8,7 @@ public class OzonAddItemsTest {
 
     @Before
     public void setUp() {
-        Init.setUp();
+        Init.setUp("https://www.ozon.ru/");
     }
 
     @After
