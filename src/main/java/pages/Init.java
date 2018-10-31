@@ -27,6 +27,7 @@ public class Init {
         driver.manage().window().maximize();
         driver.get(BASE_URL);
         builder = new Actions(driver);
+
     }
 
     public static void tearDown() {
