@@ -21,10 +21,6 @@ public class Page {
     }
 
 
-    protected WebElement findByXpath(By xpath) {
-        return Init.getDriver().findElement(xpath);
-    }
-
     void checkTotalValue(int total, int expectedValue) {
         Assert.assertEquals("Значения не соотвествует ожидаемому",
                 expectedValue, total);
